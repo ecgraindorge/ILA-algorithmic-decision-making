@@ -41,7 +41,8 @@ biased-algorithmic-decision-making-hiring/
 │   ├── 02_model_training_and_group_audit.ipynb
 │   ├── 03_shap_explainability.ipynb
 │   ├── 04_lime_local_explanations.ipynb
-│   └── 05_poster_visualizations.ipynb
+│   ├── 05_poster_visualizations.ipynb
+│   └── 06_robustness_analyses.ipynb
 │
 ├── figures/
 │   ├── actual_employment_by_sex_transparent.png
@@ -99,6 +100,12 @@ Uses LIME to explain one individual prediction. This notebook shows which featur
 
 Creates poster-ready versions of the final visuals using a consistent color palette, white text, dark notebook previews, and transparent image exports for PowerPoint or poster design.
 
+### 6. Robustness Analyses
+
+`06_robustness_analyses.ipynb`
+
+Tests how stable the audit results are: 30 repeated train/test splits with 95% intervals, ACS person weights, error-rate parity (true and false positive rates), a direct proxy test that predicts sex from Model B's features, and replications for California 2023 and Texas, New York and Florida 2024. Set the `ACS_DATA_DIR` environment variable to keep the downloaded ACS files outside the repository.
+
 ---
 
 ## Methods
@@ -142,7 +149,16 @@ Key points:
 - **The model compresses the sex gap but amplifies race gaps.** The actual sex gap is 7.9 points, while the predicted gap is 3.3 points. Among men, the gap between the Other and White groups grows from 4.6 points (actual) to 13.1 points (predicted).
 - **Black women have the lowest actual employment rate** (46.1%). Compared with the highest actual-rate group (Male, Asian, 65.1%), their ratio is about 0.71 before any modeling.
 
-Caveats: The Black subgroups are small (n ≈ 256), so their rates carry a margin of error of roughly ±6 percentage points. Results come from a single train/test split. Running `02_model_training_and_group_audit.ipynb` reproduces this table (sections 14 and 20).
+Caveats: The Black subgroups are small (n ≈ 256), so their rates carry a margin of error of roughly ±6 percentage points. The table comes from a single train/test split. Running `02_model_training_and_group_audit.ipynb` reproduces it (sections 14 and 20).
+
+### Robustness
+
+`06_robustness_analyses.ipynb` repeats the audit across 30 splits and in four more state-year datasets:
+
+- **The sex-only check always passes**, while one to seven sex × race groups fall below 0.80 in every unweighted dataset, with or without sex in the model.
+- **Which groups fail depends on sampling and weighting.** The unweighted ACS sample is older and over-represents institutional group quarters. With ACS person weights, fewer groups fall below 0.80 (1.4 on average for Model A in California 2024), and the Black groups' intervals are wide.
+- **Removing sex moves the error gap.** True positive rates for women and men become nearly equal, but the gap in false positive rates widens in all five datasets.
+- **The remaining features proxy for sex.** Model B's features predict sex with an AUC of about 0.67 to 0.71.
 
 ---
 
@@ -191,6 +207,7 @@ pip install -r requirements.txt
 03_shap_explainability.ipynb
 04_lime_local_explanations.ipynb
 05_poster_visualizations.ipynb
+06_robustness_analyses.ipynb
 ```
 
 The figures will be saved to the `figures/` folder.
