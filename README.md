@@ -1,9 +1,8 @@
-[README_biased_algorithmic_decision_making.md](https://github.com/user-attachments/files/30605827/README_biased_algorithmic_decision_making.md)
 # Biased Algorithmic Decision-Making in AI-Powered Hiring
 
 This repository explores how predictive employment models can reproduce group-patterned differences in employment outcomes. Using American Community Survey (ACS) Public Use Microdata Sample (PUMS) person-level data, the project trains employment prediction models and uses group audits, SHAP, and LIME to examine how model predictions are shaped by demographic, educational, household, disability-related, and service-related variables.
 
-The project is designed as both a technical analysis and a public-facing research artifact. It supports a conference presentation on biased algorithmic decision-making in AI-powered hiring and demonstrates how explainable AI tools can make model behavior more visible without assuming that explainability alone solves fairness concerns.
+The project demonstrates how explainable AI tools can make model behavior more visible without assuming that explainability alone solves fairness concerns.
 
 ---
 
@@ -30,35 +29,15 @@ The dataset is not a hiring dataset and does not represent job applicants or act
 ## Repository Structure
 
 ```text
-biased-algorithmic-decision-making-hiring/
-│
 ├── README.md
-├── requirements.txt
-├── .gitignore
+├── requirements_algorithmic_decision_making_acsemployment.txt
 │
-├── notebooks/
-│   ├── 01_data_preparation.ipynb
-│   ├── 02_model_training_and_group_audit.ipynb
-│   ├── 03_shap_explainability.ipynb
-│   ├── 04_lime_local_explanations.ipynb
-│   ├── 05_poster_visualizations.ipynb
-│   └── 06_robustness_analyses.ipynb
-│
-├── figures/
-│   ├── actual_employment_by_sex_transparent.png
-│   ├── actual_vs_predicted_by_sex_transparent.png
-│   ├── predicted_employment_with_vs_without_sex_transparent.png
-│   ├── top_14_shap_features_model_includes_sex_transparent.png
-│   ├── shap_beeswarm_model_includes_sex_wide_transparent.png
-│   ├── top_11_shap_features_model_excludes_sex_transparent.png
-│   ├── shap_beeswarm_model_excludes_sex_top11_transparent.png
-│   └── lime_local_explanation_poster_clean.png
-│
-├── poster/
-│   └── conference_poster.pptx
-│
-└── docs/
-    └── references.md
+└── notebooks/
+    ├── 01_data_preparation.ipynb
+    ├── 02_model_training_and_group_audit.ipynb
+    ├── 03_shap_explainability.ipynb
+    ├── 04_lime_local_explanations.ipynb
+    └── 06_robustness_analyses.ipynb
 ```
 
 ---
@@ -94,12 +73,6 @@ Uses SHAP to examine global model behavior. This notebook includes top-feature i
 
 Uses LIME to explain one individual prediction. This notebook shows which features push a specific prediction toward “employed” or “not employed.”
 
-### 5. Poster Visualizations
-
-`05_poster_visualizations.ipynb`
-
-Creates poster-ready versions of the final visuals using a consistent color palette, white text, dark notebook previews, and transparent image exports for PowerPoint or poster design.
-
 ### 6. Robustness Analyses
 
 `06_robustness_analyses.ipynb`
@@ -117,7 +90,7 @@ This project uses:
 - Group-level prediction audits
 - SHAP global explainability
 - LIME local explainability
-- Poster-ready data visualization with Matplotlib
+- Data visualization with Matplotlib
 
 The modeling workflow compares prediction patterns across two models: one trained with sex included and one trained with sex removed. This allows the project to examine whether removing a protected attribute eliminates group-patterned differences, or whether other variables may still act as proxies for social and labor-market structures.
 
@@ -173,30 +146,13 @@ Caveats: The Black subgroups are small (n ≈ 256), so their rates carry a margi
 
 ---
 
-## Poster Visual Design
-
-The poster visuals use the following design palette:
-
-```python
-POSTER_BG = "#061529"
-POSTER_BLUE = "#0393DB"
-POSTER_ORANGE = "#F26B21"
-POSTER_GREEN = "#2E8B45"
-POSTER_RED = "#D13F35"
-POSTER_WHITE = "white"
-```
-
-Most poster figures are displayed in the notebooks with a dark background for readability, but saved with transparent backgrounds for use in PowerPoint.
-
----
-
 ## How to Run the Project
 
 1. Clone this repository or open the notebooks in Google Colab.
 2. Install the required packages:
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements_algorithmic_decision_making_acsemployment.txt
 ```
 
 3. Run the notebooks in order:
@@ -206,11 +162,8 @@ pip install -r requirements.txt
 02_model_training_and_group_audit.ipynb
 03_shap_explainability.ipynb
 04_lime_local_explanations.ipynb
-05_poster_visualizations.ipynb
 06_robustness_analyses.ipynb
 ```
-
-The figures will be saved to the `figures/` folder.
 
 ---
 
@@ -226,18 +179,6 @@ scikit-learn
 shap
 lime
 folktables
-```
-
----
-
-## Suggested Colab Links
-
-After uploading the notebooks to GitHub, replace `YOUR-USERNAME` and `YOUR-REPO` with your GitHub username and repository name.
-
-```markdown
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](
-https://colab.research.google.com/github/YOUR-USERNAME/YOUR-REPO/blob/main/notebooks/01_data_preparation.ipynb
-)
 ```
 
 ---
@@ -262,11 +203,10 @@ This project approaches algorithmic decision-making as a sociotechnical issue. M
 
 ---
 
-## Citation and Attribution
+## Data Attribution
 
 Dataset: American Community Survey Public Use Microdata Sample (ACS PUMS), U.S. Census Bureau.
 
-This repository was created to support a conference presentation (International Leadership Association, October 2026)  and research project on biased algorithmic decision-making in AI-powered hiring.
+## AI Disclosure
 
-## Acknowledgements & AI Disclosure
-This repository contains the code for an academic project. **Anthropic's Claude Opus 5.5** was utilized lightly during development as a debugging aid to resolve specific syntax errors and optimize runtime exceptions. All core algorithms, methodology, and logic were independently conceptualized and authored by the repository's creator.
+Generative AI (Anthropic's Claude) was used to assist with debugging, adding the intersectional audit and label corrections to the analysis notebooks, and writing and running the robustness analyses in `06_robustness_analyses.ipynb`. All analyses and results were reviewed and verified by the author.
