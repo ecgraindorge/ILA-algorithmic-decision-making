@@ -209,4 +209,4 @@ Dataset: American Community Survey Public Use Microdata Sample (ACS PUMS), U.S. 
 
 ## AI Disclosure
 
-Generative AI (Anthropic's Claude) was used to assist with debugging, adding the intersectional audit and label corrections to the analysis notebooks, and writing and running the robustness analyses in `06_robustness_analyses.ipynb`. All analyses and results were reviewed and verified by the author.
+Anthropic's Claude Opus 5.5 was utilized lightly during development as a debugging aid to resolve specific syntax errors and optimize runtime exceptions. All core algorithms, methodology, and logic were independently conceptualized and authored by the repository's creator.
